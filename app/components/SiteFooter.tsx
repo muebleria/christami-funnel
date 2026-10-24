@@ -39,10 +39,41 @@ export function SiteFooter() {
         </div>
         <div className="footer-bottom">
           © {new Date().getFullYear()} Mueblería Christami · Todos los derechos reservados ·{" "}
-          <Link href="/privacidad">Política de privacidad</Link>
+          <Link href="/privacidad">Política de privacidad</Link> · <NidusCredit />
         </div>
       </div>
     </footer>
+  );
+}
+
+/* Crédito discreto de NidusCode (autorizado por el cliente). Solo la marca lleva el degradado. */
+function NidusCredit() {
+  return (
+    <span style={{ whiteSpace: "nowrap" }}>
+      Sitio creado por{" "}
+      <a
+        href="https://nidus-code-web.vercel.app/"
+        target="_blank"
+        rel="noopener"
+        aria-label="Sitio creado por NidusCode"
+        style={{ display: "inline-flex", alignItems: "center", gap: 4, verticalAlign: "-2px", textDecoration: "none" }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="https://nidus-code-web.vercel.app/assets/nidus-logo.png" alt="" width={11} height={13} style={{ display: "inline-block" }} />
+        <span
+          style={{
+            fontWeight: 600,
+            letterSpacing: "-0.2px",
+            background: "linear-gradient(90deg, #8f77ff 0%, #c25cf2 50%, #ff4fbf 100%)",
+            WebkitBackgroundClip: "text",
+            backgroundClip: "text",
+            color: "transparent",
+          }}
+        >
+          NidusCode
+        </span>
+      </a>
+    </span>
   );
 }
 
