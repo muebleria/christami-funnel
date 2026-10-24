@@ -64,8 +64,18 @@ export async function submitLead(_prev: SubmitState | null, formData: FormData):
     .single();
 
   if (error || !inserted) {
-    console.error("[submit-lead] insert error:", error);
-    return { ok: false, error: "No pudimos guardar tu solicitud. Intenta de nuevo o escríbenos por WhatsApp." };
+    // Si la base falla (p. ej. Supabase pausado), no se pierde la cotización:
+    // igual se lleva al cliente a WhatsApp con su solicitud armada.
+    console.error("[submit-lead] insert error, se envía a WhatsApp sin guardar:", error);
+    const fallback = new URLSearchParams({
+      nombre: input.nombre,
+      tipo: input.tipo_proyecto,
+      plazo: input.plazo,
+      presup: input.presupuesto_rango,
+      ciudad: input.ciudad,
+      score: String(score),
+    });
+    redirect(`/gracias?${fallback.toString()}`);
   }
 
   // Email best-effort: si Resend falla, el lead ya está guardado.
